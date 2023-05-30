@@ -1,23 +1,42 @@
-import logo from './logo.svg';
+import React, { useEffect, useCallback } from "react";
 import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
+import { logout } from "./actions/auth";
+import EventBus from "./common/EventBus";
+import AuthVerify from "./common/AuthVerify";
+import Login from "./features/login";
+import Register from "./features/register";
 
-function App() {
+const App = () => {
+  const { user: currentUser } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const logOut = useCallback(() => {
+    dispatch(logout());
+  });
+
+  useEffect(() => {
+    EventBus.on("logout", () => {
+      logOut();
+    });
+
+    return () => {
+      EventBus.remove("logout");
+    };
+  }, [currentUser, logOut]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="container">
+        <Routes>
+          {/*<Route exact path={["/", "/home"]} component={Home} />*/}
+          <Route path="/login" element={Login()} />
+          <Route path="/register" element={Register()} />
+        </Routes>
+      </div>
+
+      <AuthVerify logOut={logOut} />
     </div>
   );
 }
