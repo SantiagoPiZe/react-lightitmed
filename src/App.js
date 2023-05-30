@@ -1,41 +1,40 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import './App.css';
-import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route } from "react-router-dom";
-import { logout } from "./actions/auth";
+import { useSelector } from "react-redux";
+import { Routes, Route, Navigate } from "react-router-dom";
 import EventBus from "./common/EventBus";
-import AuthVerify from "./common/AuthVerify";
+import AuthVerify from "./common/auth-verify";
+import AuthService from "./services/auth.service";
 import Login from "./features/login";
 import Register from "./features/register";
+import Home from "./features/home";
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
 
-  const logOut = useCallback(() => {
-    dispatch(logout());
-  });
+  const logOut = () => {
+    AuthService.logout();
+  };
 
   useEffect(() => {
-    EventBus.on("logout", () => {
-      logOut();
-    });
+    EventBus.on("logout", logOut);
 
     return () => {
       EventBus.remove("logout");
     };
-  }, [currentUser, logOut]);
+  }, []);
 
   return (
     <div>
       <div className="container">
         <Routes>
-          {/*<Route exact path={["/", "/home"]} component={Home} />*/}
-          <Route path="/login" element={Login()} />
-          <Route path="/register" element={Register()} />
+          <Route path='/' element={<Navigate to="/login" />} />
+          <Route path='/logout' element={<Navigate to="/login" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
-
       <AuthVerify logOut={logOut} />
     </div>
   );

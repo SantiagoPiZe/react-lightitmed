@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import AuthService from "../../services/auth.service";
-import * as Styles from "./styles"
+import * as Styles from "./styles";
+import { renderInputs } from "../../components/RenderInputs";
 import logo from "../../common/assets/logo.png"
 
-
-const Register = (props) => {
+const Register = () => {
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -22,11 +22,6 @@ const Register = (props) => {
     { title: "Full Name", type: "fullname" },
     { title: "Gender", type: "gender" },
     { title: "Date of Birth", type: "dateofbirth" },
-  ]
-
-  const genderOptions = [
-    { label: "Male", value: "Male" },
-    { label: "Female", value: "Female" }
   ]
 
   const handleRegister = (e) => {
@@ -96,38 +91,7 @@ const Register = (props) => {
     return false;
   }
 
-  const renderInputs = () => {
-    return inputs.map((input) => {
-      return (input.type !== "gender" && input.type !== "dateofbirth") ? (
-        <Styles.InputContianer key={input.type}>
-          <Styles.InputTitle>{input.title}</Styles.InputTitle>
-          <Styles.StyledInput
-            onChange={(e) => onChangeHandler(e, input.type)}
-            type={input.type === "password" ? "password" : ""}
-          />
-        </Styles.InputContianer>
-      ) : input.type !== "dateofbirth" ?
-        (
-          <Styles.InputContianer key={input.type}>
-            <Styles.InputTitle>{input.title}</Styles.InputTitle>
-            <Styles.GenderOptions
-              optionType="button"
-              options={genderOptions}
-              onChange={(e) => onChangeHandler(e, input.type)}
-            />
-          </Styles.InputContianer>
-        )
-        :
-        (
-          <Styles.InputContianer key={input.type}>
-            <Styles.InputTitle>{input.title}</Styles.InputTitle>
-            <Styles.DateSelector
-              onChange={(value) => onChangeHandler(value, input.type)}
-            />
-          </Styles.InputContianer>
-        )
-    });
-  };
+  
 
   return (
     <Styles.RegisterContainer>
@@ -142,7 +106,7 @@ const Register = (props) => {
         {successMessageVisible &&
           (<Styles.SuccessMesage> User created successfully! </Styles.SuccessMesage>) 
         }
-        {renderInputs()}
+        {renderInputs(inputs, onChangeHandler)}
         <Styles.RegisterButton
           onClick={handleRegister}
           disabled={buttonDisabledHandler()}
