@@ -2,7 +2,7 @@ import axios from "axios";
 import * as Urls from "../common/constants/urls"
 
 const register = (username, email, password, fullName, gender, dateOfBirth) => {
-  return axios.post(Urls.API_URL + "signup", {
+  return axios.post(Urls.registerUrl, {
     username,
     email,
     password,
@@ -14,7 +14,7 @@ const register = (username, email, password, fullName, gender, dateOfBirth) => {
 
 const login = (username, password) => {
   return axios
-    .post(Urls.API_URL + "signin", {
+    .post(Urls.loginUrl, {
       username,
       password,
     })

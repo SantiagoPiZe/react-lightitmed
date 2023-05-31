@@ -2,12 +2,12 @@ import React, { useState, useLayoutEffect } from "react";
 import * as Styles from "./styles"
 import NavBar from "../../components/NavBar";
 import avatar from "../../common/assets/avatar.png"
+import AuthService from "../../services/auth.service"
 import { renderInputs } from "../../components/RenderInputs";
 
 const Home = () => {
 
     const [userData, setUserData] = useState({})
-
 
     const inputs = [
         { title: "User Name", type: "username" },
@@ -18,7 +18,7 @@ const Home = () => {
     ]
 
     useLayoutEffect(() => {
-        setUserData(JSON.parse(localStorage.getItem("user")))
+        setUserData(AuthService.getCurrentUser())
     }, [])
 
     return (

@@ -11,6 +11,7 @@ const root = createRoot(container);
 
 root.render(
   <Provider store={store}>
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'></link>
     <BrowserRouter>
       <App />
     </BrowserRouter>

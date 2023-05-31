@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AuthService from "../../services/auth.service";
 import * as Styles from "./styles";
 import { renderInputs } from "../../components/RenderInputs";
+import { SubmitButton } from "../../components/SubmitButton";
 import logo from "../../common/assets/logo.png"
 
 const Register = () => {
@@ -107,12 +108,11 @@ const Register = () => {
           (<Styles.SuccessMesage> User created successfully! </Styles.SuccessMesage>) 
         }
         {renderInputs(inputs, onChangeHandler)}
-        <Styles.RegisterButton
-          onClick={handleRegister}
-          disabled={buttonDisabledHandler()}
-        >
-          Register
-        </Styles.RegisterButton>
+        {SubmitButton(
+          handleRegister,
+          buttonDisabledHandler(),
+          "Register"
+        )}
         <Styles.Login
           to={"/Login"}
         >

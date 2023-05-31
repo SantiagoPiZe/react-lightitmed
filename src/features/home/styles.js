@@ -18,13 +18,13 @@ export const Profile = styled.div`
 export const ProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
-    background-color: #fff;
     width: 950px;
     align-items: center;
     justify-content: center;
+    border-style:  solid;
     border-radius: 10px;
-    border-color: #fff;
-    background: #ECF1FF;
+    border-color: white;
+    background-color: #ECF1FF;
     border-width: 3px;
     padding: 10px;
 `
@@ -32,7 +32,7 @@ export const ProfileTitle = styled.label`
     font-size: 32px;
     font-weight: bolder;
     margin-bottom: 15px;
-    font-family: helvetica;
+    font-family: 'Lato', sans-serif;
 `
 
 export const ProfileImage = styled.img`
