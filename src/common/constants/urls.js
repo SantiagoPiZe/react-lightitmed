@@ -9,3 +9,5 @@ export const getSymptomsUrl = API_URL + "symptoms";
 
 //diagnoses
 export const diagnose = API_URL + "newDiagnosis";
+export const diagnosisList = API_URL + "user/diagnoses";
+export const getDiagnostic = API_URL + "user/diagnostic"

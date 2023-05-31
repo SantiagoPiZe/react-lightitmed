@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const LoginButton = styled.button`
+export const SubmitButton = styled.button`
     width: 150px;
     height: 40px;
     margin-top: 25px;
