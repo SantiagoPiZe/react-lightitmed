@@ -8,6 +8,7 @@ import AuthService from "./services/auth.service";
 import Login from "./features/login";
 import Register from "./features/register";
 import Home from "./features/home";
+import { GetDiagnosed } from "./features/getDiagnosed";
 
 const App = () => {
   const { user: currentUser } = useSelector((state) => state.auth);
@@ -33,6 +34,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/newDiagnosis" element={<GetDiagnosed/>} />
         </Routes>
       </div>
       <AuthVerify logOut={logOut} />
