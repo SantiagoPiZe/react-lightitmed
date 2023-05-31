@@ -12,21 +12,25 @@ You can do so from the command line by running git clone <link> on the folder wh
 ##Installing dependencies
 
 Inside each of the project folders ( react-lightitmed and lightitmed-node) from the command line run
+
   ```
   npm install
   ```
+
 ##Setting up the db
 
 For this project a MySQL db was chosen. To set up the database, from MySql create a new connection with the following configuration
-    ```
+    
+  ```
   HOST: 127.0.0.1,
   PORT: 3306,
   USER: "root",
   PASSWORD: "root",
   DB (or connection name): "lightitmed",
   dialect: "mysql",
-    ```
- ##Running the project
+  ```
+
+##Running the project
  
  Lastly you need to run from each of the project's location ( same as in the dependecies step ) the following command to start each of the projects
  
