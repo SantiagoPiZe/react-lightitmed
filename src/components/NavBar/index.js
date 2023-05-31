@@ -1,6 +1,7 @@
 import React from "react";
 import * as Styles from "./styles"
 import logo from "../../common/assets/logo.png"
+import AuthService from "../../services/auth.service";
 
 const NavBar = () => {
 
@@ -17,9 +18,19 @@ const NavBar = () => {
                 src={logo}
             />
             {navOptions.map((option) => (
-                <Styles.NavBarOption key={option.id} id={option.id} to={option.path}>{option.displayName}</Styles.NavBarOption>
+                option.id === "logout" ?
+                    <Styles.NavBarOption key={option.id}
+                        id={option.id}
+                        to={option.path}
+                        onClick={() => AuthService.logout()}
+                        >
+            {option.displayName}
+        </Styles.NavBarOption>
+                    :
+<Styles.NavBarOption key={option.id} id={option.id} to={option.path}>{option.displayName}</Styles.NavBarOption>
+
             ))}
-        </Styles.NavBar>
+        </Styles.NavBar >
     )
 
 };
