@@ -6,11 +6,16 @@ import NavBar from "../../components/NavBar";
 import { DiagnosesDisplay } from "../../components/DiagnosisDisplay";
 import { SubmitButton } from '../../components/SubmitButton';
 import { ArrowRightOutlined } from '@ant-design/icons';
+import { useNavigate } from "react-router-dom";
+
 
 export const YourDiagnoses = () => {
 
     const [diagnosesList, setDiagnosesList] = useState([]);
     const [currentDiagnostic, setCurrentDiagnostic] = useState([]);
+    const [userData, setUserData] = useState({})
+  
+    const navigate = useNavigate()
 
     const handleClick = (id) => {
         DiagnosesService.getDiagnostic(id).then(response => {
@@ -42,12 +47,16 @@ export const YourDiagnoses = () => {
 
     useEffect(() => {
         const userId = AuthService.getCurrentUser().id;
+        setUserData(AuthService.getCurrentUser())
         DiagnosesService.getDiagnosisList(userId).then(response => {
             setDiagnosesList(response)
         });
     }, []);
 
     return (
+        userData === null ?
+        navigate('/')
+        :
         <Styles.YourDiagnosesPage>
             <NavBar />
             <Styles.YourDiagnoses>

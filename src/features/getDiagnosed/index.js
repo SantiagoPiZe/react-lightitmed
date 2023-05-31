@@ -6,6 +6,7 @@ import * as Styles from './styles';
 import NavBar from "../../components/NavBar";
 import { SubmitButton } from '../../components/SubmitButton';
 import { DiagnosesDisplay } from '../../components/DiagnosisDisplay';
+import { useNavigate } from "react-router-dom";
 
 export const GetDiagnosed = () => {
 
@@ -13,6 +14,14 @@ export const GetDiagnosed = () => {
     const [selectedSymptoms, setSelectedSymptoms] = useState([])
     const [diagnosis, setDiagnosis] = useState({})
     const [failedDiagnosis, setFailedDiagnosis] = useState(false)
+    const [userData, setUserData] = useState({})
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        setUserData(AuthService.getCurrentUser())
+    }, [])
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -56,6 +65,9 @@ export const GetDiagnosed = () => {
     }
 
     return (
+        userData === null ?
+        navigate('/')
+        :
         <Styles.GetDiagnosedPage>
             <NavBar />
             <Styles.GetDiagnosed>

@@ -4,10 +4,13 @@ import NavBar from "../../components/NavBar";
 import avatar from "../../common/assets/avatar.png"
 import AuthService from "../../services/auth.service"
 import { renderInputs } from "../../components/RenderInputs";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
 
     const [userData, setUserData] = useState({})
+
+    const navigate = useNavigate()
 
     const inputs = [
         { title: "User Name", type: "username" },
@@ -22,6 +25,9 @@ const Home = () => {
     }, [])
 
     return (
+        userData === null ?
+        navigate('/')
+        :
         <Styles.HomeContainer>
             <NavBar />
             <Styles.Profile>
