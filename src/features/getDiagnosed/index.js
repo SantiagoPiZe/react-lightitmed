@@ -12,6 +12,7 @@ export const GetDiagnosed = () => {
     const [symptoms, setSymptoms] = useState([])
     const [selectedSymptoms, setSelectedSymptoms] = useState([])
     const [diagnosis, setDiagnosis] = useState({})
+    const [failedDiagnosis, setFailedDiagnosis] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,6 +45,9 @@ export const GetDiagnosed = () => {
         const userData = AuthService.getCurrentUser();
         DiagnosesService.diagnose(selectedSymptoms, userData.gender, new Date(userData.dateOfBirth).getFullYear(), userData.id)
             .then(result => {
+                if (result.length === 0) {
+                    setFailedDiagnosis(true)
+                }
                 setDiagnosis(result);
             })
             .catch(error => {
@@ -67,19 +71,24 @@ export const GetDiagnosed = () => {
                             (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                         }
                         options={symptoms}
-                        pag
+                        onChange={() => failedDiagnosis && setFailedDiagnosis(false)}
                         onSelect={(value) => handleSelectSymptom(value)}
                         onDeselect={(value) => handleSelectSymptom(value)}
                     />
                     {
-                        diagnosis.length > 0 &&
-                        (
-                            <Styles.DiagnosisContainer>
-                                {
-                                    DiagnosesDisplay(diagnosis)
-                                }
-                            </Styles.DiagnosisContainer>
-                        )
+                        !failedDiagnosis ?
+                            diagnosis.length > 0 &&
+                            (
+                                <Styles.DiagnosisContainer>
+                                    {
+                                        DiagnosesDisplay(diagnosis)
+                                    }
+                                </Styles.DiagnosisContainer>
+                            )
+                        :
+                            (
+                                <Styles.ErrorMessage>No diagnosis found for the selected symptoms, please try again with new ones.</Styles.ErrorMessage>
+                            )
                     }
                     {SubmitButton(
                         handleSubmitSymptoms,

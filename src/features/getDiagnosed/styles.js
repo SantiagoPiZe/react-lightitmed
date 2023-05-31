@@ -54,3 +54,7 @@ export const SelectedSymptoms = styled.div`
 export const DiagnosisContainer = styled.div`
     width: 100%;
 `
+
+export const ErrorMessage = styled.label`
+    color: red;
+`
